@@ -20,7 +20,7 @@ def create_new_user(email, password, nickname, age):
 
 def sign_up(email, password, nickname, age):
 
-    user = session.query(User).filter(User.email).first()
+    user = session.query(User).filter(User.email == email).first()
 
     if user:
         return abort(409, "This email is already sign up")
@@ -39,4 +39,22 @@ def sign_up(email, password, nickname, age):
 
 
 def login(email, password):
-    pass
+
+    user = session.query(User).filter(User.email == email).first()
+
+    if user:
+        user_pw = check_password_hash(user.password, password)
+
+        if user_pw:
+            access_token = create_access_token(identity=email)
+            refresh_token = create_refresh_token(identity=email)
+
+            return {
+                "access_token": access_token,
+                "refresh_token": refresh_token
+            }
+
+        else:
+            return abort(400, "The password is incorrect")
+    else:
+        return abort(404, "The email is incorrect")

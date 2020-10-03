@@ -1,12 +1,14 @@
 from flask import Flask
 from flask_restful import Api
 from flask_jwt_extended import JWTManager
-# from flask_cors import CORS
+from flask_cors import CORS
 
 from server import JWT_SECRET_KEY, JWT_ACCESS_TOKEN_EXPIRES
 
 def create_app():
     _app = Flask(__name__)
+
+    CORS(_app)
 
     api = Api(_app)
 
@@ -22,5 +24,8 @@ def create_app():
 
     from server.view.user import Auth
     api.add_resource(Auth, "/user/auth")
+
+    from server.view.user import Refresh
+    api.add_resource(Refresh, "/user/auth/refresh")
 
     return _app

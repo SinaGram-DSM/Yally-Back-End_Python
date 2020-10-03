@@ -5,6 +5,7 @@ from flask_cors import CORS
 
 from server import JWT_SECRET_KEY, JWT_ACCESS_TOKEN_EXPIRES
 
+
 def create_app():
     _app = Flask(__name__)
 

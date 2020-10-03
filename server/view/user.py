@@ -43,5 +43,5 @@ class Refresh(Resource):
         user = get_jwt_identity()
 
         return {
-            'access_token': create_access_token(identity=user)
+            'accessToken': create_access_token(identity=user)
         }

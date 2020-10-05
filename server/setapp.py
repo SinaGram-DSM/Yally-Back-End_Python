@@ -29,4 +29,7 @@ def create_app():
     from server.view.user import Refresh
     api.add_resource(Refresh, "/user/auth/refresh")
 
+    from server.view.user import SendMail
+    api.add_resource(SendMail, "/user/auth-code/email")
+
     return _app

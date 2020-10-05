@@ -3,6 +3,7 @@ from flask_restful import Resource
 from flask_jwt_extended import jwt_refresh_token_required, get_jwt_identity, create_access_token
 
 from server.controller.user import sign_up, login
+from server.controller.mail import send_email
 from server.view import check_json
 
 
@@ -45,3 +46,15 @@ class Refresh(Resource):
         return {
             'accessToken': create_access_token(identity=user)
         }
+
+
+class SendMail(Resource):
+
+    def post(self):
+        email = request.json['email']
+
+        send_email(email)
+        return {
+            "message": "Success"
+        }
+

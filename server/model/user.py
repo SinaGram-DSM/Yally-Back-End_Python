@@ -5,6 +5,7 @@ from server.model import Base
 
 class User(Base):
     __tablename__ = 'users'
+    _table_args_ = {'mysql_collate': 'utf8_general_ci'}
 
     email = Column(String(30), primary_key=True)
     password = Column(String(100), nullable=False)

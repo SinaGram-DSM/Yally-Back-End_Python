@@ -26,7 +26,6 @@ def sign_up(email, password, nickname, age):
         return abort(409, "This email is already sign up")
 
     try:
-
         create_new_user(email, password, nickname, age)
 
         return {

@@ -9,14 +9,14 @@ from server.model.user import User
 def listening(owner_email, listening_email):
 
     if owner_email == listening_email:
-        return abort(400, "자기 자신을 리슨할 수는 없어요")
+        return abort(400, "can't listen yourself")
 
     listening_state = session.query(Listen).\
                         filter(Listen.listeningEmail == listening_email).\
                         filter(Listen.listenerEmail == owner_email).first()
 
     if listening_state:
-        return abort(400, "이미 리슨 하고 있어요")
+        return abort(400, "already listening")
 
     listening_user = session.query(User).filter(User.email == listening_email).first()
 
@@ -41,14 +41,14 @@ def listening(owner_email, listening_email):
 def unlistening(owner_email, listening_email):
 
     if owner_email == listening_email:
-        return abort(400, "자기 자신을 언리슨할 수는 없어요")
+        return abort(400, "can't unlisten yourself")
 
     listening_state = session.query(Listen). \
         filter(Listen.listeningEmail == listening_email). \
         filter(Listen.listenerEmail == owner_email).first()
 
     if listening_state is None:
-        return abort(400, "이미 리슨 하지 않고 있어요")
+        return abort(400, "already unlistening")
 
     listening_user = session.query(User).filter(User.email == listening_email).first()
 

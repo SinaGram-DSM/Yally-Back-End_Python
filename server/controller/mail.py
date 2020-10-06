@@ -2,7 +2,6 @@ import smtplib, secrets
 from flask import abort
 from email.mime.text import MIMEText
 from datetime import timedelta
-from time import sleep
 from redis.exceptions import ConnectionError
 
 from server import EMAIL_PASSWORD, EMAIL_ID
@@ -11,6 +10,7 @@ from server.model import Redis
 
 def save_code_into_redis(email, auth_code):
     Redis.set(email, auth_code, timedelta(minutes=5))
+
 
 def create_auth_code():
     code = secrets.choice(range(100000, 1000000))
@@ -32,7 +32,7 @@ def send_email(email):
     server.login(EMAIL_ID, EMAIL_PASSWORD)
 
     msg = MIMEText(str(auth_code))
-    msg['Subject'] = "yally 인증 코드"
+    msg['Subject'] = "yally auth code"
 
     server.sendmail(EMAIL_ID, email, msg.as_string())
     server.quit()

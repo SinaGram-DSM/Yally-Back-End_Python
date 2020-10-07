@@ -7,7 +7,7 @@ Flask-RESTful==0.3.8
 itsdangerous==1.1.0
 Jinja2==2.11.2
 MarkupSafe==1.1.1
-mysqlclient @ file:///D:/mysqlclient/mysqlclient-1.4.6-cp37-cp37m-win32.whl
+mysqlclient==1.4.6
 PyJWT==1.7.1
 PyMySQL==0.10.1
 pytz==2020.1

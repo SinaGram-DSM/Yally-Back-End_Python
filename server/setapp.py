@@ -32,6 +32,9 @@ def create_app():
     from server.view.user import SendMail
     api.add_resource(SendMail, "/user/auth-code/email")
 
+    from server.view.user import CheckAuthCode
+    api.add_resource(CheckAuthCode, "/user/auth-code")
+
     from server.view.listen import Listen
     api.add_resource(Listen, "/user/listening")
 

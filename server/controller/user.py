@@ -31,7 +31,7 @@ def sign_up(email, password, nickname, age):
 
         return {
             "message": "Successfully signed up"
-        }
+        }, 201
 
     except SQLAlchemyError:
         session.rollback()

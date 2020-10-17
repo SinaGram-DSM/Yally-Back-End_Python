@@ -48,7 +48,7 @@ class Refresh(Resource):
         }
 
 
-class SendMail(Resource):
+class SendAuthEmail(Resource):
 
     @check_json({
         "email": str
@@ -56,10 +56,18 @@ class SendMail(Resource):
     def post(self):
         email = request.json['email']
 
-        send_email(email)
-        return {
-            "message": "Success"
-        }
+        return send_email(email, codetype='auth')
+
+
+class SendResetEmail(Resource):
+
+    @check_json({
+        "email": str
+    })
+    def post(self):
+        email = request.json['email']
+
+        send_email(email, codetype='reset')
 
 
 class CheckAuthCode(Resource):
@@ -72,6 +80,7 @@ class CheckAuthCode(Resource):
         email = request.json['email']
         code = request.json['code']
         return check_auth_code(email, code)
+
 
 
 

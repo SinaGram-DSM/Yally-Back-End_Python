@@ -4,16 +4,16 @@
 
 ### USER
 - 회원가입     
-POST /user
+~~POST /user~~
 
 - 로그인     
-POST /user/auth
+~~POST /user/auth~~
 
 - 회원가입 이메일 인증 코드 전송    
-POST /user/auth-code/email
+~~POST /user/auth-code/email~~
 
 - 인증 코드 검사
-POST /user/auth-code
+~~POST /user/auth-code~~
 
 - 비밀번호 초기화 이메일 인증 코드 전송    
 POST /user/reset-code/email
@@ -22,8 +22,8 @@ POST /user/reset-code/email
 PUT /user/auth/password
 
 - 리스닝 하기, 취소:   
-POST /user/listening (JWT)  
-DELETE /user/listening (JWT)
+~~POST /user/listening (JWT)~~  
+~~DELETE /user/listening (JWT)~~
 
 ### 타임라인
 - `<email>` 이 작성한 글 타임라인    

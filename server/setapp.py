@@ -35,6 +35,12 @@ def create_app():
     from server.view.user import SendAuthEmail
     api.add_resource(SendAuthEmail, "/user/auth-code/email")
 
+    from server.view.user import SendResetEmail
+    api.add_resource(SendResetEmail, "/user/reset-code/email")
+
+    from server.view.user import ChangePassword
+    api.add_resource(ChangePassword, "/user/auth/password")
+
     from server.view.listen import Listen
     api.add_resource(Listen, "/user/listening")
 

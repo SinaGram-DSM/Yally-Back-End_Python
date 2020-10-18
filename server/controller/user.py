@@ -5,7 +5,6 @@ from sqlalchemy.exc import SQLAlchemyError
 
 from server.model import session
 from server.model.user import User
-from server.model import Redis
 
 
 def create_new_user(email, password, nickname, age):
@@ -58,17 +57,6 @@ def login(email, password):
             return abort(400, "The password is incorrect")
     else:
         return abort(404, "The email is incorrect")
-
-
-def check_auth_code(email, code):
-    auth_code = Redis.get(email).decode('utf-8')
-
-    if auth_code == code:
-        return {
-            "message": "Successfully authenticated"
-        }
-    else:
-        return abort(401, "The verification code is not correct")
 
 
 

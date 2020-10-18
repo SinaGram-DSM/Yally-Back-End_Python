@@ -2,8 +2,8 @@ from flask import request
 from flask_restful import Resource
 from flask_jwt_extended import jwt_refresh_token_required, get_jwt_identity, create_access_token
 
-from server.controller.user import sign_up, login, check_auth_code
-from server.controller.mail import send_email
+from server.controller.user import sign_up, login
+from server.controller.mail import send_email, check_auth_code, change_password
 from server.view import check_json
 
 
@@ -80,6 +80,21 @@ class CheckAuthCode(Resource):
         email = request.json['email']
         code = request.json['code']
         return check_auth_code(email, code)
+
+
+class ChangePassword(Resource):
+
+    @check_json({
+        "email": str,
+        "code": str,
+        "password": str
+    })
+    def put(self):
+        email = request.json['email']
+        code = request.json['code']
+        password = request.json['password']
+
+        return change_password(email, code)
 
 
 

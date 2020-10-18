@@ -67,7 +67,7 @@ class SendResetEmail(Resource):
     def post(self):
         email = request.json['email']
 
-        send_email(email, codetype='reset')
+        return send_email(email, codetype='reset')
 
 
 class CheckAuthCode(Resource):
@@ -94,7 +94,7 @@ class ChangePassword(Resource):
         code = request.json['code']
         password = request.json['password']
 
-        return change_password(email, code)
+        return change_password(email, code, password)
 
 
 

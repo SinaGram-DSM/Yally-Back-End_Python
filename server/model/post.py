@@ -11,7 +11,7 @@ class Post(Base):
     content = Column(String(100), nullable=True)
     img = Column(String(40), nullable=True)
     sound = Column(String(40), nullable=False)
-    userEmail = Column(ForeignKey('users.email'), nullable=False)
+    userEmail = Column(ForeignKey('users.email', ondelete="cascade", onupdate="cascade"), nullable=False)
     createdAt = Column(TIMESTAMP, nullable=False, server_default=text("CURRENT_TIMESTAMP"))
 
 

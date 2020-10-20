@@ -65,13 +65,13 @@ def send_reset_code_email(email):
 def send_email(email, codetype):
     user = session.query(User).filter(User.email == email).first()
 
-    if user:
-        if codetype == 'auth':
-            return send_auth_code_email(email)
-        elif codetype == 'reset':
+    if codetype == 'auth':
+        return send_auth_code_email(email)
+    elif codetype == 'reset':
+        if user:
             return send_reset_code_email(email)
-    else:
-        return abort(404, "User not found")
+        else:
+            return abort(404, "User not found")
 
 
 def check_auth_code(email, code):

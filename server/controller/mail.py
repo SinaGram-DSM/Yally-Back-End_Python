@@ -43,7 +43,6 @@ def send_code_to_email(email, codetype):
 
 
 def send_auth_code_email(email):
-    auth_code = create_auth_code()
 
     send_code_to_email(email, codetype="auth")
 
@@ -53,7 +52,6 @@ def send_auth_code_email(email):
 
 
 def send_reset_code_email(email):
-    reset_code = create_auth_code()
 
     send_code_to_email(email, codetype="reset")
 
@@ -66,14 +64,19 @@ def send_email(email, codetype):
     user = session.query(User).filter(User.email == email).first()
 
     if codetype == 'auth':
+        if user:
+            return abort(409, "This email is already sign up")
+
         return send_auth_code_email(email)
+
     elif codetype == 'reset':
         if user:
             return send_reset_code_email(email)
-        else:
-            return abort(404, "User not found")
+
+        return abort(404, "User not found")
 
 
+# check_code 하나로 만들기 + 기능분리
 def check_auth_code(email, code):
     auth_code = Redis.get(email+"auth").decode('utf-8')
 
@@ -106,6 +109,7 @@ def change_password(email, code, password):
             return {
                 "message": "Successfully password changed"
             }
+
         else:
             return abort(404, "The email is incorrect")
     else:

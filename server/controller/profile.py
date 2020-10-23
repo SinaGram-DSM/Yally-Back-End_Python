@@ -32,18 +32,19 @@ def get_profile_timeline(user_email, profile_user_email, page):
         return abort(418, "db_error")
 
     posts = []
-    for i in range(limit):
-        try:
-            posts.append({
-                "content": post[i].content,
-                "sound": f"{S3_URL}{post[i].sound}",
-                "yallyCount": session.query(Yally).filter(Yally.postId == post[i].id).count(),
-                "commentCount": session.query(Comment).filter(Comment.postId == post[i].id).count(),
-                "isYally": True if session.query(Yally).filter(Yally.userEmail == user_email).filter(Yally.postId == post[i].id).first() else False,
-                "createdAt": str(post[i].createdAt)
-            })
-        except SQLAlchemyError:
-            return abort(418, "db_error")
+    if post:
+        for i in range(len(post)):
+            try:
+                posts.append({
+                    "content": post[i].content,
+                    "sound": f"{S3_URL}{post[i].sound}",
+                    "yallyCount": session.query(Yally).filter(Yally.postId == post[i].id).count(),
+                    "commentCount": session.query(Comment).filter(Comment.postId == post[i].id).count(),
+                    "isYally": True if session.query(Yally).filter(Yally.userEmail == user_email).filter(Yally.postId == post[i].id).first() else False,
+                    "createdAt": str(post[i].createdAt)
+                })
+            except SQLAlchemyError:
+                return abort(418, "db_error")
 
     return {
         "posts": posts

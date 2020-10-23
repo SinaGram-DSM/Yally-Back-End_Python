@@ -41,6 +41,9 @@ def create_app():
     from server.view.user import ChangePassword
     api.add_resource(ChangePassword, "/user/auth/password")
 
+    from server.view.profile import GetProfileTimeline
+    api.add_resource(GetProfileTimeline, "/mypage/timeline/<email>/<page>")
+
     from server.view.listen import Listen
     api.add_resource(Listen, "/user/listening")
 

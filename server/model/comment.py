@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, ForeignKey
+from sqlalchemy import Column, String, ForeignKey, text, TIMESTAMP
 
 from server.model import Base
 
@@ -12,3 +12,4 @@ class Comment(Base):
     sound = Column(String(40), nullable=True)
     postId = Column(ForeignKey('posts.id', onupdate="cascade", ondelete="cascade"), nullable=False)
     userEmail = Column(ForeignKey('users.email', onupdate="cascade", ondelete="cascade"), nullable=False)
+    createdAt = Column(TIMESTAMP, nullable=False, server_default=text("CURRENT_TIMESTAMP"))

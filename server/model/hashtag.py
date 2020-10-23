@@ -7,5 +7,5 @@ class Hashtag(Base):
     __tablename__ = 'hastags'
     _table_args_ = {'mysql_collate': 'utf8_general_ci'}
 
-    postId = Column(ForeignKey('posts.id', onupdate="cascade", ondelete="cascade"), nullable=False)
-    content = Column(String(20), nullable=False)
+    postId = Column(ForeignKey('posts.id', onupdate="cascade", ondelete="cascade"), nullable=False, primary_key=True)
+    content = Column(String(20), nullable=False, primary_key=True)

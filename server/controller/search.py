@@ -4,7 +4,6 @@ from flask import abort
 from server.model import session
 from server.model.user import User
 from server.model.listen import Listen
-from server import S3_URL
 
 
 def get_user_search_info(owner_email, user_nickname):
@@ -15,7 +14,8 @@ def get_user_search_info(owner_email, user_nickname):
 
     return {
         "users": [{
-            "img": f"{S3_URL}{user_info.img}",
+            "email": user_info.email,
+            "img": user_info.img,
             "nickname": user_info.nickname,
             "listening": session.query(Listen).filter(Listen.listeningEmail == user_info.email).count(),
             "listener": session.query(Listen).filter(Listen.listenerEmail == user_info.email).count(),

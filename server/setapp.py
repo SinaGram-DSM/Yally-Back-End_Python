@@ -57,4 +57,7 @@ def create_app():
     from server.view.listen import Listen
     api.add_resource(Listen, "/user/listening")
 
+    from server.view.search import GetUserSearch
+    api.add_resource(GetUserSearch, "/search/user")
+
     return _app

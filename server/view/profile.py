@@ -10,7 +10,7 @@ class GetProfileTimeline(Resource):
     def get(self, email, page):
         user_email = get_jwt_identity()
 
-        if page.isdigit() != True:
+        if not page.isdigit():
             return abort(400, "Check you json key name and value type")
 
         return get_profile_timeline(user_email, email, int(page))

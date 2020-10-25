@@ -43,7 +43,7 @@ def get_profile_timeline(user_email, profile_user_email, page):
             "img": post.img,
             "yally": session.query(Yally).filter(Yally.postId == post.id).count(),
             "comment": session.query(Comment).filter(Comment.postId == post.id).count(),
-            "isYally": True if session.query(Yally).filter(Yally.userEmail == user_email).filter(Yally.postId == post[i].id).first() else False,
+            "isYally": True if session.query(Yally).filter(Yally.userEmail == user_email).filter(Yally.postId == post.id).first() else False,
             "createdAt": str(post.createdAt)
         }for post in posts]
     }

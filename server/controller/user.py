@@ -16,6 +16,7 @@ def create_new_user(email, password, nickname, age):
 
     session.add(new_user)
     session.commit()
+    session.close()
 
 
 def sign_up(email, password, nickname, age):

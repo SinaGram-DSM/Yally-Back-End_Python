@@ -10,6 +10,7 @@ def get_user_search_info(owner_email, user_nickname):
     try:
         user = session.query(User).filter(User.nickname.like(f"{user_nickname}%")).all()
     except SQLAlchemyError:
+        session.rollback()
         return abort(418, "db_error")
 
     return {

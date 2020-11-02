@@ -27,7 +27,7 @@ def send_code_to_email(email, codetype):
         save_code_into_redis(email, code, codetype=codetype)
 
     except ConnectionError:
-        abort(500, "redis_error")
+        abort(418, "redis_error")
 
     server = smtplib.SMTP("smtp.gmail.com", 587)
     server.starttls()

@@ -16,7 +16,6 @@ def create_new_user(email, password, nickname, age):
 
     session.add(new_user)
     session.commit()
-    session.close()
 
 
 def sign_up(email, password, nickname, age):
@@ -35,7 +34,7 @@ def sign_up(email, password, nickname, age):
 
     except SQLAlchemyError:
         session.rollback()
-        return abort(500, "db_error")
+        return abort(418, "db_error")
 
 
 def login(email, password):

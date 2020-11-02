@@ -32,7 +32,8 @@ def listening(owner_email, listening_email):
             }
 
         except SQLAlchemyError:
-            return abort(500, "db_error")
+            session.rollback()
+            return abort(418, "db_error")
 
     else:
         return abort(404, "No such user")
@@ -64,7 +65,8 @@ def unlistening(owner_email, listening_email):
             }
 
         except SQLAlchemyError:
-            return abort(500, "db_error")
+            session.rollback()
+            return abort(418, "db_error")
     else:
         return abort(404, "No such user")
 

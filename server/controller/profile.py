@@ -15,6 +15,7 @@ def get_profile_timeline(user_email, profile_user_email, page):
     try:
         user = session.query(User).filter(User.email == profile_user_email).first()
     except SQLAlchemyError:
+        session.rollback()
         return abort(418, "db_error")
 
     page = (page - 1) * limit
@@ -28,6 +29,7 @@ def get_profile_timeline(user_email, profile_user_email, page):
                    .order_by(Post.createdAt.desc()) \
                    .all()[page:page + limit]
     except SQLAlchemyError:
+        session.rollback()
         return abort(418, "db_error")
 
     return {

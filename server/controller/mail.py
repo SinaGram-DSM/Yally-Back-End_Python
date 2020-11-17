@@ -23,6 +23,61 @@ def create_auth_code():
 def send_code_to_email(email, codetype):
     code = create_auth_code()
 
+    pre_html = """
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>NumberEmail</title>
+            <style>
+                body{
+                    position: relative;
+                    height: 90vh;
+                    width: 50%;
+                    margin: 0;
+                }
+                .background{
+                    width: 100%;
+                    position: absolute;
+                    bottom: 10%;
+                }
+                #container{
+                    display: flex;
+                    justify-content: center;
+                    padding-top: 100px;
+                }
+                p{
+                    text-align: center;
+                }
+                .logoImg
+                {
+                    width: 290px;
+                    height: 230px;
+                }
+            </style>
+        </head>
+        <body>
+            <div id='container'>
+                <div>
+                    <img src="../../assets/img/logo-purple.png" class="logoImg">
+                    <p>
+                    
+        """
+
+    postfix_html = """
+                    </p>
+                    <p>얄리에서 더 넓은 세상을 들어보세요.</p>
+                </div>
+            </div>
+            <img class="background" src="../../assets/img/background.png">
+
+        </body>
+        </html>
+        """
+
+    html_body = pre_html + str(code) + postfix_html
+
     try:
         save_code_into_redis(email, code, codetype=codetype)
 
@@ -33,7 +88,7 @@ def send_code_to_email(email, codetype):
     server.starttls()
     server.login(EMAIL_ID, EMAIL_PASSWORD)
 
-    msg = MIMEText(str(code))
+    msg = MIMEText(html_body, 'html')
     msg['Subject'] = f"yally {codetype} code"
 
     server.sendmail(EMAIL_ID, email, msg.as_string())

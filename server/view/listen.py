@@ -9,23 +9,15 @@ from server.view import check_json
 class Listen(Resource):
 
     @jwt_required
-    @check_json({
-        "listeningEmail": str,
-    })
-    def post(self):
-        listening_email = request.json['listeningEmail']
+    def post(self, email):
         owner_email = get_jwt_identity()
 
-        return listening(owner_email, listening_email)
+        return listening(owner_email, email)
 
     @jwt_required
-    @check_json({
-        "listeningEmail": str,
-    })
-    def delete(self):
-        listening_email = request.json['listeningEmail']
+    def delete(self, email):
         owner_email = get_jwt_identity()
 
-        return unlistening(owner_email, listening_email)
+        return unlistening(owner_email, email)
 
 

@@ -55,7 +55,7 @@ def create_app():
     api.add_resource(GetProfileTimeline, "/mypage/timeline/<email>/<page>")
 
     from server.view.listen import Listen
-    api.add_resource(Listen, "/user/listening")
+    api.add_resource(Listen, "/user/listening/<email>")
 
     from server.view.search import GetUserSearch
     api.add_resource(GetUserSearch, "/search/user")
